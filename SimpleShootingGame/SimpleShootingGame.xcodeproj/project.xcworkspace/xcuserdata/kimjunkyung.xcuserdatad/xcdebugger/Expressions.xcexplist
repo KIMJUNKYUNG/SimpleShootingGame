@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VariablesViewState
+   version = "1.0">
+   <ContextStates>
+      <ContextState
+         contextName = "GameScene.initPlayer():GameScene.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "monsterGenDuration">
+            </PersistentString>
+            <PersistentString
+               value = "self.monsterGenDuration">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in GameOverScene.init(size:won:gameSceneDelegate:):GameOverScene.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "gameSceneDelegate">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "GameScene.addMonster():GameScene.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "acutalDuration">
+            </PersistentString>
+            <PersistentString
+               value = "duration">
+            </PersistentString>
+            <PersistentString
+               value = "self.actionMoveList">
+            </PersistentString>
+            <PersistentString
+               value = "monsterSpeed">
+            </PersistentString>
+            <PersistentString
+               value = "monster.size.height">
+            </PersistentString>
+            <PersistentString
+               value = "monster.size.height/2">
+            </PersistentString>
+            <PersistentString
+               value = "self.size.width - self.player.size.width">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "GameScene.speedupMonster():GameScene.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.monsterSpeed">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in GameScene.initShootButton():GameScene.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.player.texture == SKTexture(image: playerDefaultImg)">
+            </PersistentString>
+            <PersistentString
+               value = "">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "GameScene.random(min:max:):GameScene.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "random()">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "GameScene.levelUpMonster():GameScene.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "monsterGenDuration">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "GameScene.initMonster():GameScene.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "monsterGenDuration">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "GameScene.projectileDidCollideWithMonster(projectile:monster:):GameScene.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "actionMoveList">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "GameScene.didMove(to:):GameScene.swift">
+      </ContextState>
+   </ContextStates>
+</VariablesViewState>
