@@ -54,6 +54,24 @@ class GameScene : SKScene
         return js
     }()
     
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if let firstTouchPosition = touches.first?.location(in: self){
+            self.analogJoystick.position = firstTouchPosition
+            self.analogJoystick.touchesBegan(touches, with: event)
+        }
+    }
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.analogJoystick.touchesMoved(touches, with: event)
+    }
+    
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.analogJoystick.touchesEnded(touches, with: event)
+    }
+    
+    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.analogJoystick.touchesCancelled(touches, with: event)
+    }
+    
     override init(size : CGSize) {
         super.init(size: size)
         self.initDB()

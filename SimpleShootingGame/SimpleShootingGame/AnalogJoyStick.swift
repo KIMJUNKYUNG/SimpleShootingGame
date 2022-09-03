@@ -208,12 +208,14 @@ class AnalogJoystick : SKNode{
 extension AnalogJoystick{
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touchFirst = touches.first, stick == atPoint(touchFirst.location(in: self)){
+            print("Began!")
             isTracking = true
             beginHandler?()
         }
     }
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches{
+            print("MOVED!!!")
             let location = touch.location(in: self)
             
             guard isTracking else{
