@@ -14,9 +14,9 @@
             filePath = "SimpleShootingGame/GameScene.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "196"
-            endingLineNumber = "196"
-            landmarkName = "initDB()"
+            startingLineNumber = "206"
+            endingLineNumber = "206"
+            landmarkName = "initLabel()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -24,14 +24,14 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "4203977A-4510-40C5-A242-5569C454AB19"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SimpleShootingGame/GameScene.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "109"
-            endingLineNumber = "109"
+            startingLineNumber = "112"
+            endingLineNumber = "112"
             landmarkName = "updateHighScore()"
             landmarkType = "7">
          </BreakpointContent>

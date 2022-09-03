@@ -15,6 +15,7 @@ struct PhysicsCategory{
     static let all : UInt32 = UInt32.max
     static let monster : UInt32 = 0b1 // 1
     static let projectile : UInt32 = 0b10 // 2
+    static let player : UInt32 = 0b11 // 3
 }
 
 class GameScene : SKScene
@@ -84,6 +85,8 @@ extension GameScene{
             self.highScore = try context.fetch(fetchRequest)
             if self.highScore.count > 0{
                 self.lblHighScore.text = "HighScore : " + String(self.highScore[0].value)
+            }else{
+                self.lblHighScore.text = "HighScore : 0"
             }
         }catch{
             print(error)
@@ -187,6 +190,13 @@ extension GameScene{
     func initPlayer()
     {
         player.position = CGPoint(x: ScreenSize.width / 2, y:  ScreenSize.height / 2 - 45)
+        
+        player.physicsBody = SKPhysicsBody(circleOfRadius: player.size.width / 2)
+        player.physicsBody?.isDynamic = true
+        player.physicsBody?.categoryBitMask = PhysicsCategory.player
+        player.physicsBody?.contactTestBitMask = PhysicsCategory.player
+        player.physicsBody?.collisionBitMask = PhysicsCategory.none
+        player.physicsBody?.usesPreciseCollisionDetection = true
         
         self.addChild(player)
     }
@@ -342,17 +352,9 @@ extension GameScene{
         let actionMoveDone = SKAction.removeFromParent()
         
         // 게임 끝나는 조건
-        let loseAction = SKAction.run { [weak self] in
-            guard let `self` = self else { return }
-            
-            self.updateHighScore()
-            
-            let gameOverScene = GameOverScene(size: self.size, won: false)
-            self.view?.presentScene(gameOverScene,transition: reveal)
-        }
         
         monster.run(SKAction.sequence([
-            actionMove, loseAction, actionMoveDone])
+            actionMove, actionMoveDone])
         )
     }
     
@@ -415,6 +417,7 @@ extension GameScene : SKPhysicsContactDelegate{
         monster.removeFromParent()
         
         self.monstersDestroyed += 1
+
         self.killScore.text = self.monstersDestroyed.description
     }
     
@@ -438,6 +441,18 @@ extension GameScene : SKPhysicsContactDelegate{
                let projectile = secondBody.node as? SKSpriteNode{
                 self.projectileDidCollideWithMonster(projectile: monster, monster: projectile)
             }
+        }else if((firstBody.categoryBitMask == PhysicsCategory.monster) &&
+                  (secondBody.categoryBitMask == PhysicsCategory.player)){
+            let loseAction = SKAction.run { [weak self] in
+                guard let `self` = self else { return }
+                
+                self.updateHighScore()
+                
+                let gameOverScene = GameOverScene(size: self.size, won: false)
+                self.view?.presentScene(gameOverScene,transition: reveal)
+            }
+            
+            player.run(loseAction)
         }
     }
 }
