@@ -25,7 +25,7 @@ class GameScene : SKScene
     let player = SKSpriteNode(imageNamed: "player")
     
     var monstersDestroyed = 0
-    var monsterVelocity = 136.17
+    var monsterVelocity = 175.0
     
     var monsters : [SKSpriteNode] = []
     var waveLevel = 1
@@ -60,9 +60,7 @@ class GameScene : SKScene
         self.initLabel()
         self.initPlayer()
         self.initJoystick()
-        
-        self.startWave(level : waveLevel)
-        //self.initAudio()
+        self.genMonster()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -361,8 +359,6 @@ extension GameScene{
     func addMonster(){
         let monster = SKSpriteNode(imageNamed: "monster")
         
-//        mosterHp[monster] = Int.random(in: 0...5)
-        
         monster.physicsBody = SKPhysicsBody(rectangleOf: monster.size)
         monster.physicsBody?.isDynamic = true
         monster.physicsBody?.categoryBitMask = PhysicsCategory.monster
@@ -388,24 +384,16 @@ extension GameScene{
         monsters.append(monster)
     }
     
-    func genMonster(genCount : Int, genDuration : Double)
+    func genMonster()
     {
-        let waveDoneAction = SKAction.run { [weak self] in
-                guard let `self` = self else { return }
-            
-                self.waveLevel += 1
-                self.startWave(level: self.waveLevel)
-            }
-        
-        self.run(SKAction.sequence([SKAction.repeat(SKAction.sequence([
-            SKAction.run(addMonster),
-            SKAction.wait(forDuration: genDuration)]),count : genCount), waveDoneAction]))
-    }
-    
-    func startWave(level : Int)
-    {
-        NotifyLabel(text: "Wave " + String(waveLevel))
-        self.genMonster(genCount: level * 10, genDuration: 1.0 / Double(level))
+        self.run(
+            SKAction.repeatForever(
+                SKAction.sequence([
+                    SKAction.run(addMonster),
+                    SKAction.wait(forDuration: 0.3)]
+                    )
+            )
+        )
     }
 }
 
@@ -452,7 +440,7 @@ extension GameScene : SKPhysicsContactDelegate{
                 self.view?.presentScene(gameOverScene,transition: reveal)
             }
             
-            player.run(loseAction)
+            self.run(loseAction)
         }
     }
 }

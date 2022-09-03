@@ -14,9 +14,9 @@
             filePath = "SimpleShootingGame/GameScene.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "206"
-            endingLineNumber = "206"
-            landmarkName = "initLabel()"
+            startingLineNumber = "204"
+            endingLineNumber = "204"
+            landmarkName = "initDB()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -30,8 +30,8 @@
             filePath = "SimpleShootingGame/GameScene.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "112"
-            endingLineNumber = "112"
+            startingLineNumber = "110"
+            endingLineNumber = "110"
             landmarkName = "updateHighScore()"
             landmarkType = "7">
          </BreakpointContent>
