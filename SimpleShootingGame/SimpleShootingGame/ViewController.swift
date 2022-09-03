@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import CoreData
 
 class ViewController: UIViewController {
 
@@ -21,6 +22,7 @@ class ViewController: UIViewController {
         let gameSceneVC = GameSceneViewController()
         self.present(gameSceneVC, animated: true)
     }
+    
     @IBAction func btnExitTouched(_ sender: Any) {
         exit(0)
     }

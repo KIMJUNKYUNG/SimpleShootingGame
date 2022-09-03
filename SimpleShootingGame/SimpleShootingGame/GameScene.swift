@@ -7,15 +7,13 @@
 
 import SpriteKit
 import GameController
-//
-//import GameplayKit
-//import Combine
-//import ControlGameKit
+
+import CoreData
 
 struct PhysicsCategory{
     static let none : UInt32 = 0
     static let all : UInt32 = UInt32.max
-    static let monster : UInt32 = 0b1 // bit가 32개, 1
+    static let monster : UInt32 = 0b1 // 1
     static let projectile : UInt32 = 0b10 // 2
 }
 
@@ -24,11 +22,10 @@ class GameScene : SKScene
     let velocityMultiplier: CGFloat = 0.15
     
     let player = SKSpriteNode(imageNamed: "player")
-    var isLeft = false
     
     var monstersDestroyed = 0
     var monsterVelocity = 136.17
-//    var mosterHp = Dictionary<SKSpriteNode, Int>()
+    
     var monsters : [SKSpriteNode] = []
     var waveLevel = 1
     
@@ -36,9 +33,13 @@ class GameScene : SKScene
     var shootTimer : Timer?
     
     let killScore = SKLabelNode(fontNamed: "Chalkduster")
-    let highScore = SKLabelNode(fontNamed: "Chalkduster")
+    let lblHighScore = SKLabelNode(fontNamed: "Chalkduster")
     
     let lblNotify = SKLabelNode(fontNamed: "Chalkduster")
+    
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    var highScore = [HighScore]()
     
     lazy var analogJoystick : AnalogJoystick = {
         let js = AnalogJoystick(diameter: 100, colors: nil,
@@ -49,13 +50,6 @@ class GameScene : SKScene
         
         js.zPosition = 2
         return js
-    }()
-    
-    lazy var shootButton : ShootButton = {
-        let sbtn = ShootButton(diameter: 60, color: nil, image: #imageLiteral(resourceName: "jStick"))
-        
-        sbtn.position = CGPoint(x: UIScreen.main.bounds.width - 95, y: 95)
-        return sbtn
     }()
     
     override init(size : CGSize) {
@@ -76,6 +70,52 @@ class GameScene : SKScene
     
     deinit {
         print("D E I N I T !")
+    }
+}
+
+// DB
+extension GameScene{
+    func fetchData(){
+        let fetchRequest : NSFetchRequest<HighScore> = HighScore.fetchRequest()
+
+        let context = appDelegate.persistentContainer.viewContext
+
+        do{
+            self.highScore = try context.fetch(fetchRequest)
+            if self.highScore.count > 0{
+                self.lblHighScore.text = "HighScore : " + String(self.highScore[0].value)
+            }
+        }catch{
+            print(error)
+        }
+    }
+    
+    func saveHighScore(){
+        guard let enitityDecription = NSEntityDescription.entity(forEntityName: "HighScore", in: context) else { return }
+        
+        guard let highScoreObj = NSManagedObject(entity: enitityDecription, insertInto: context) as? HighScore else { return }
+
+        highScoreObj.value = Int64(lblHighScore.text ?? "0") ?? 0
+        
+        appDelegate.saveContext()
+    }
+    
+    func updateHighScore(){
+        let fetchRequest : NSFetchRequest<HighScore> = HighScore.fetchRequest()
+        
+        do{
+            let loadedData = try context.fetch(fetchRequest)
+            
+            if let hasHighScore = loadedData.first?.value{
+                let currentScore = Int64(self.monstersDestroyed)
+                if hasHighScore < currentScore{
+                    loadedData.first?.value = Int64(self.monstersDestroyed)
+                    appDelegate.saveContext()
+                }
+            }
+        }catch{
+            print(error)
+        }
     }
 }
 
@@ -153,10 +193,7 @@ extension GameScene{
     
     func initDB()
     {
-        createTable()
-        if selectValue(1) == nil{
-            insert("0")
-        }
+        fetchData()
     }
     
     func initLabel()
@@ -171,20 +208,13 @@ extension GameScene{
         killScore.fontColor = SKColor.black
         killScore.position = CGPoint(x: self.size.width / 2, y: self.size.height / 2)
         
-        var dbHighScore = selectValue(1)
-        if dbHighScore == nil
-        {
-            dbHighScore = "0"
-        }
-        
-        highScore.text = "High Score : \(dbHighScore ?? "0")"
-        highScore.fontSize = 15
-        highScore.fontColor = SKColor.black
+        lblHighScore.fontSize = 17
+        lblHighScore.fontColor = SKColor.black
         //highScore.horizontalAlignmentMode = .right
-        highScore.position = CGPoint(x: self.size.width * 0.75, y: self.size.height * 0.9)
+        lblHighScore.position = CGPoint(x: self.size.width * 0.5, y: self.size.height * 0.9)
         
         self.addChild(killScore)
-        self.addChild(highScore)
+        self.addChild(lblHighScore)
         self.addChild(lblNotify)
     }
     
@@ -242,20 +272,6 @@ extension GameScene{
     }
 }
 
-// DB
-extension GameScene{
-    func updateHighScore(){
-        if let beforeHighScore = Int(selectValue(1) ?? "O"){
-            if let newScore = Int(self.monstersDestroyed.description){
-                if beforeHighScore < newScore{
-                    updateTable("1", self.monstersDestroyed.description)
-                    self.highScore.text = selectValue(1) ?? "0"
-                }
-            }
-        }
-    }
-}
-
 // Shoot
 extension GameScene{
     func makeProjectile() -> SKSpriteNode
@@ -304,38 +320,6 @@ extension GameScene{
         }else{
             shootTimer = Timer.scheduledTimer(timeInterval: self.shootSpeed, target: self, selector: #selector(self.shootProjectile), userInfo: nil, repeats: true)
         }
-            //        addChild(shootButton)
-
-        
-//        shootButton.toggleHandler = { [unowned self] in
-    
-            //run(SKAction.playSoundFileNamed("pew-pew-lei.caf", waitForCompletion: false))
-    
-
-
-            
-
-            // Unit Vector
-//            print(self.player.zRotation)
-//            let direction = !isLeft ?
-//            CGPoint(x: cos(Double(self.player.zRotation)),
-//                    y: sin(Double(self.player.zRotation))) :
-//            CGPoint(x: -cos(Double(self.player.zRotation)),
-//                    y: -sin(Double(self.player.zRotation)))
-
-            // Multiply 1000 to Unit Vetor?
-            // enough to off scrren
-//            let shootAmount = direction * 1000
-//
-//            let destination : CGPoint = shootAmount + projectile.position
-//
-//            let actionMove = SKAction.move(to: destination, duration: 1.5)
-//            let actionMoveDone = SKAction.removeFromParent()
-//
-//            projectile.run(SKAction.sequence(
-//                [actionMove, actionMoveDone])
-//            )
-//        }
     }
 }
 
@@ -431,19 +415,6 @@ extension GameScene : SKPhysicsContactDelegate{
         monster.removeFromParent()
         
         self.monstersDestroyed += 1
-        if self.monstersDestroyed % 1 == 0
-        {
-            stopWorld()
-            
-            let fade = SKTransition.fade(withDuration: 0.5)
-            let levelUpScene = LevelUpScene(beforeScene: self, size: self.size, won: false)
-            
-            levelUpScene.helloHandler = {
-                [unowned self] in
-                self.shootSpeed *= 0.5
-            }
-            self.view?.presentScene(levelUpScene, transition: fade)
-        }
         self.killScore.text = self.monstersDestroyed.description
     }
     

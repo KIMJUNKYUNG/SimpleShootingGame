@@ -3,21 +3,10 @@
    version = "1.0">
    <ContextStates>
       <ContextState
-         contextName = "GameScene.initPlayer():GameScene.swift">
+         contextName = "GameScene.updateHighScore():GameScene.swift">
          <PersistentStrings>
             <PersistentString
-               value = "monsterGenDuration">
-            </PersistentString>
-            <PersistentString
-               value = "self.monsterGenDuration">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "closure #1 in GameOverScene.init(size:won:gameSceneDelegate:):GameOverScene.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "gameSceneDelegate">
+               value = "self.highScore">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -28,7 +17,7 @@
                value = "acutalDuration">
             </PersistentString>
             <PersistentString
-               value = "duration">
+               value = "self.size.width - self.player.size.width">
             </PersistentString>
             <PersistentString
                value = "self.actionMoveList">
@@ -43,15 +32,7 @@
                value = "monster.size.height/2">
             </PersistentString>
             <PersistentString
-               value = "self.size.width - self.player.size.width">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "GameScene.speedupMonster():GameScene.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "self.monsterSpeed">
+               value = "duration">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -75,8 +56,11 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "GameScene.levelUpMonster():GameScene.swift">
+         contextName = "GameScene.initPlayer():GameScene.swift">
          <PersistentStrings>
+            <PersistentString
+               value = "self.monsterGenDuration">
+            </PersistentString>
             <PersistentString
                value = "monsterGenDuration">
             </PersistentString>
@@ -91,6 +75,39 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "GameScene.speedupMonster():GameScene.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.monsterSpeed">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "GameScene.fetchData():GameScene.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.highScore[0]">
+            </PersistentString>
+            <PersistentString
+               value = "self.highScore">
+            </PersistentString>
+            <PersistentString
+               value = "appDelegate.persistentContainer">
+            </PersistentString>
+            <PersistentString
+               value = "self.highScore[0].value">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in GameOverScene.init(size:won:gameSceneDelegate:):GameOverScene.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "gameSceneDelegate">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "GameScene.projectileDidCollideWithMonster(projectile:monster:):GameScene.swift">
          <PersistentStrings>
             <PersistentString
@@ -100,6 +117,14 @@
       </ContextState>
       <ContextState
          contextName = "GameScene.didMove(to:):GameScene.swift">
+      </ContextState>
+      <ContextState
+         contextName = "GameScene.levelUpMonster():GameScene.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "monsterGenDuration">
+            </PersistentString>
+         </PersistentStrings>
       </ContextState>
    </ContextStates>
 </VariablesViewState>

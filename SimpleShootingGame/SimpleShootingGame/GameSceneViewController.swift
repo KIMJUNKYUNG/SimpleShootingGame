@@ -20,7 +20,6 @@ class GameSceneViewController: ViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.addSubview(skView)
         skView.frame = CGRect(x: 0, y: 0, width: ScreenSize.width, height: ScreenSize.height)
 
         let scene = GameScene(size : CGSize(width: ScreenSize.width, height: ScreenSize.height))
@@ -32,5 +31,7 @@ class GameSceneViewController: ViewController {
         skView.showsFPS = true
         skView.showsNodeCount = true
         skView.ignoresSiblingOrder = true
+        
+        view.addSubview(skView)
     }
 }
