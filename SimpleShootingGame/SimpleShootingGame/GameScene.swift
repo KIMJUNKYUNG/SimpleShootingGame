@@ -10,6 +10,7 @@ import GameController
 
 import CoreData
 
+
 struct PhysicsCategory{
     static let none : UInt32 = 0
     static let all : UInt32 = UInt32.max
@@ -74,6 +75,15 @@ class GameScene : SKScene
 
 // DB
 extension GameScene{
+    func makeDB(){
+        guard let enitityDecription = NSEntityDescription.entity(forEntityName: "HighScore", in: context) else { return }
+        
+        guard let highScoreObject = NSManagedObject(entity: enitityDecription, insertInto: context) as? HighScore else { return }
+        
+        highScoreObject.value = 0
+        appDelegate.saveContext()
+    }
+    
     func fetchData(){
         let fetchRequest : NSFetchRequest<HighScore> = HighScore.fetchRequest()
 
@@ -84,6 +94,7 @@ extension GameScene{
             if self.highScore.count > 0{
                 self.lblHighScore.text = "HighScore : " + String(self.highScore[0].value)
             }else{
+                makeDB()
                 self.lblHighScore.text = "HighScore : 0"
             }
         }catch{
