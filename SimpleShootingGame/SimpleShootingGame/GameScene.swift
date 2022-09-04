@@ -217,6 +217,7 @@ extension GameScene{
     func initPlayer()
     {
         player.position = CGPoint(x: ScreenSize.width / 2, y:  ScreenSize.height / 2 - 45)
+        player.size = CGSize(width: 75, height: 75)
         
         player.physicsBody = SKPhysicsBody(circleOfRadius: player.size.width / 2)
         player.physicsBody?.isDynamic = true
@@ -314,6 +315,8 @@ extension GameScene{
     func makeProjectile() -> SKSpriteNode
     {
         let projectile = SKSpriteNode(imageNamed: "projectile")
+        
+        projectile.size = CGSize(width: 50, height: 50)
 
         projectile.physicsBody = SKPhysicsBody(circleOfRadius: projectile.size.width / 2)
         projectile.physicsBody?.isDynamic = true
@@ -387,6 +390,8 @@ extension GameScene{
     
     func addMonster(){
         let monster = SKSpriteNode(imageNamed: "monster")
+        
+        monster.size = CGSize(width: 50, height: 50)
         
         monster.physicsBody = SKPhysicsBody(rectangleOf: monster.size)
         monster.physicsBody?.isDynamic = true
